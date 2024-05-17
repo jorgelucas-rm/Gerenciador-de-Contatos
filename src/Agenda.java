@@ -41,7 +41,7 @@ public class Agenda {
             String endereco = scan.nextLine();
 
             contatos.add(new ContatoPessoal(nome, email, Long.parseLong(telefone), aniversario, endereco));
-        } else {
+        } if (opcao == 2) {
             System.out.println("Informar empresa do contato:");
             String empresa = scan.nextLine();
 
