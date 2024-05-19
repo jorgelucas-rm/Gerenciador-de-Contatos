@@ -2,12 +2,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.sql.*;
 
 public class Agenda {
 
     private List<Contato> contatos = new ArrayList<>();
+
+    public void jbdc() {
+        String url= "jdbc:mysql://acilab.com.br:3309/db2603";
+        String user= "root";
+        String password= "admin";
+        String query = "";
+        
+        try{
+            Connection conn = DriverManager.getConnection(url,user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
     Scanner scan = new Scanner(System.in);
     int opcao;
+
+    public int tipoContato(Contato contato){
+        if(contato instanceof ContatoPessoal){
+            return 1;
+        }
+        else if(contato instanceof ContatoProfissional){
+            return 2;
+        }
+        else {
+            return -1;
+        }
+    }
 
     public void adicionarContato() {
         System.out.println("\nQual o tipo de contato que você deseja adicionar?\n\n" +
@@ -40,7 +74,7 @@ public class Agenda {
             System.out.println("Informar endereço do contato:");
             String endereco = scan.nextLine();
 
-            contatos.add(new ContatoPessoal(nome, email, Long.parseLong(telefone), aniversario, endereco));
+            contatos.add(new ContatoPessoal(nome, email, telefone, aniversario, endereco));
         } if (opcao == 2) {
             System.out.println("Informar empresa do contato:");
             String empresa = scan.nextLine();
@@ -48,7 +82,7 @@ public class Agenda {
             System.out.println("Informar cargo do contato:");
             String cargo = scan.nextLine();
 
-            contatos.add(new ContatoProfissional(nome, email, Long.parseLong(telefone), empresa, cargo));
+            contatos.add(new ContatoProfissional(nome, email, telefone, empresa, cargo));
         }
     }
 
@@ -65,20 +99,6 @@ public class Agenda {
 
     public void buscarContato() {
 
-        System.out.println("\nQual o tipo de contato que você deseja buscar?\n\n" +
-                "[1] Buscar um contato pessoal\n" +
-                "[2] Buscar um contato profissional\n");
-
-        System.out.println("Opção desejada:");
-        opcao = scan.nextInt();
-        scan.nextLine();
-
-        if (opcao != 1 && opcao != 2){
-            System.out.println("\nOpção invalida");
-            buscarContato();
-            return;
-        }
-
         System.out.println("Qual o nome do contato que deseja buscar?");
         String buscar = scan.nextLine();
 
@@ -88,14 +108,16 @@ public class Agenda {
                         "\nEmail: " + contato.getEmail() +
                         "\nTelefone: " + contato.getTelefone());
 
-                if (opcao == 1) {
-                    System.out.println("Aniversário: " + contato.getAdicional1() +
-                            "\nEndereço: " + contato.getAdicional2());
-                    return;
-                } if (opcao == 2) {
-                    System.out.println("Empresa: " + contato.getAdicional1() +
-                            "\nCargo: " + contato.getAdicional2());
-                    return;
+                switch (tipoContato(contato)){
+                    case 1:
+                        System.out.println("Aniversário: " + contato.getAdicional1() +
+                                "\nEndereço: " + contato.getAdicional2());
+                        break;
+
+                    case 2:
+                        System.out.println("Empresa: " + contato.getAdicional1() +
+                                "\nCargo: " + contato.getAdicional2());
+                        break;
                 }
             }
 

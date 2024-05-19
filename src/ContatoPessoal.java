@@ -1,7 +1,7 @@
 public class ContatoPessoal extends Contato {
     private String aniversario, endereco;
 
-    ContatoPessoal(String nome, String email, long telefone, String aniversario, String endereco) {
+    ContatoPessoal(String nome, String email, String telefone, String aniversario, String endereco) {
         super(nome, email, telefone);
         this.aniversario = aniversario;
         this.endereco = endereco;

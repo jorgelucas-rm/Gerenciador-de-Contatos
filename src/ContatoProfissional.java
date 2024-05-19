@@ -1,7 +1,7 @@
 public class ContatoProfissional extends Contato {
     private String empresa, cargo;
 
-    ContatoProfissional(String nome, String email, long telefone, String empresa, String cargo) {
+    ContatoProfissional(String nome, String email, String telefone, String empresa, String cargo) {
         super(nome, email, telefone);
         this.empresa = empresa;
         this.cargo = cargo;

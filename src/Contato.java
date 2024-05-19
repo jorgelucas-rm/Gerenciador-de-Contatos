@@ -1,8 +1,7 @@
 public abstract class Contato {
-    private String nome, email;
-    private long telefone;
+    private String nome, email, telefone;
 
-    Contato(String nome, String email, long telefone) {
+    Contato(String nome, String email, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
@@ -27,11 +26,11 @@ public abstract class Contato {
     }
 
     // SET e GET Telefone
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
