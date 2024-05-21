@@ -1,30 +1,12 @@
+import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://acilab.com.br:3309/db2603";
-        String user = "root";
-        String password = "admin";
-        String query = "SELECT name, street FROM customers";
-        try {
-            Connection conn = DriverManager.getConnection(url, user, password);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                System.out.println(rs.getString("name") + ", " + rs.getString("street"));
-            }
-
-            System.out.println("Conectado com suceso.");
-
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
-
-
-        int opcao = -1;
         Agenda agenda = new Agenda();
+        int opcao = -1;
+
         while (opcao != 5) {
 
             System.out.println("\nQual operação você deseja realizar?\n\n" +
